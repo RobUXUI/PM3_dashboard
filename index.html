@@ -1,121 +1,153 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-  <title>Dashboard</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
-
-<body class="bg-dark">
-
-
-  <nav class="row">
-    <div class="container">
-      <img src="./assets/logo/uis_chart.png" alt="" width="80">
-      <h1 class="text-info text-center  p-3 "> Dashboard</h1>
-    </div>
-  </nav>
-
-
-
-  <main class="container">
-
-
-
-    <!-- primera fila -->
+<nav class="container">
     <div class="row">
-      <!-- primera  columna -->
-      <div class="col">
-        <div class="col  offset-2 my-5">
-          <div class="card">
-            <div class="body-card">
-              <h5>Ventas</h1>
-                <hr>
-                <canvas id="myChart"></canvas>
-            </div>
-          </div>
+        <div class="col">
+            <img src="./assets/logo/uis_chart.png" width="80px" height="80px">
         </div>
-      </div>
-
-
-      <!-- segunda columna -->
-      <div class="col">
-        <div class="col  offset-2 my-5">
-          <div class="card">
-            <div class="body-card">
-              <h5>Ventas</h1>
-                <hr>
-                <canvas id="myChart2"></canvas>
-            </div>
-          </div>
+        <div class="col">
+            <h1 class="text-info text-center p-3">Dashboard</h1>
         </div>
-      </div>
-
-      <!-- fin de la fila -->
+        <div class="col">
+            
+        </div>
     </div>
 
-
-
-
-    <!--segunda fila -->
-    <div class="row">
-      <!-- primera  columna -->
-      <div class="col-6">
-        <div class="col  offset-2 my-5">
-          <div class="card">
-            <div class="body-card">
-              <h5>Ventas</h1>
-                <hr>
-                <canvas id="myChart3"></canvas>
+    <!-- <div class="row">
+        <div class="col">
+            <div class="bg-light p-3">
+                <h5>Selección Estación:</h5>
+                <select id="stationSelect" class="form-select">
+                    <option value="Antofagasta">Antofagasta</option>
+                    <option value="Santiago">Santiago</option>
+                    <option value="Valparaiso">Valparaiso</option>
+                  
+                </select>
             </div>
-          </div>
         </div>
-      </div>
+    </div> -->
+</nav>
 
-
-      <!-- segunda columna -->
-      <div class="col">
-        <div class="col  offset-2 my-5">
-          <div class="card">
-            <div class="body-card">
-              <h5>Ventas</h1>
-                <hr>
-                <canvas id="myChart4"></canvas>
+<body class="container bg-dark">
+    <main class="container">
+        <div class="row">
+            <!-- Primera columna -->
+            <div class="col">
+                <div class="offset-2 my-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Codigo</h5>
+                            <hr>
+                            <div id="codigo"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
+
+            <!-- Segunda columna -->
+            <div class="col">
+                <div class="offset-2 my-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Estación</h5>
+                            <hr>
+                            <div id="estacion"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tercera columna -->
+            <div class="col">
+                <div class="offset-2 my-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Hora Actualizada</h5>
+                            <hr>
+                            <div id="horaUpdate"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
 
-      <!-- fin de la fila -->
-    </div>
+        <!-- Segunda fila -->
+        <div class="row">
+            <!-- Cuarta columna -->
+            <div class="col">
+                <div class="offset-2 my-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Temperatura</h5>
+                            <hr>
+                            <canvas id="mychart4"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
+            <!-- Quinta columna -->
+            <div class="col">
+                <div class="offset-2 my-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Humedad</h5>
+                            <hr>
+                            <canvas id="mychart5"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        <!-- Tercera fila -->
+        <div class="row">
+            <div class="col">
+                <div class="offset-2 my-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Estado</h5>
+                            <hr>
+                            <div id="estado"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    <!-- cierre main container -->
-  </main>
+            <div class="col">
+                <div class="offset-2 my-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Icono</h5>
+                            <hr>
+                            <img id="icono" alt="Icono">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
 
-  <footer class="row container">
-    <h6 class="text-info text-center  p-3 "> Desarrollado por Roberto Munizaga</h6>
-  </footer>
+    <footer class="container">
+        <h6 class="text-info text-center p-3">Desarrollado por Roberto Munizaga</h6>
+    </footer>
 
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
 
-
-  <!-- Option 1: Bootstrap Bundle with Popper -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-    crossorigin="anonymous"></script>
-
-  <!-- chart -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script> scc = "char.min.js"</script>
-  <script src="./js/app_chart.js"></script>
-
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="./js/app_chart.js"></script>
 </body>
+
 </html>
