@@ -1,12 +1,47 @@
+
 const url = 'https://api.gael.cloud/general/public/clima';
 
 fetch(url)
     .then(response => response.json())
     .then(data => {
-        mostrarData(data);
-        displayCharts(data);
+        if (Array.isArray(data) && data.length > 0) {
+            const primerObjeto = data[0]; // Accede al primer objeto en el arreglo
+            mostrarData(primerObjeto);
+            displayCharts(data);
+        } else {
+            console.error('La respuesta del API está vacía o no es un arreglo.');
+        }
     })
-    .catch(error => console.error(error)); //  console.error para errores
+    .catch(error => {
+        console.error('Error:', error);
+    });
+
+
+
+function mostrarData(objeto) {
+    // Obtiene los valores del objeto
+    const codigo = objeto.Codigo;
+    const estacion = objeto.Estacion;
+    const hora = objeto.HoraUpdate;
+    const estado = objeto.Estado;
+    const icono = objeto.Icono;
+
+    // Obtiene elementos HTML por ID
+    const codigoDiv = document.getElementById('codigo');
+    const estacionDiv = document.getElementById('estacion');
+    const horaDiv = document.getElementById('hora');
+    const estadoDiv = document.getElementById('estado');
+    const iconoImg = document.getElementById('icono'); // Corrección en el nombre de la variable
+
+    // Actualiza el contenido de los elementos HTML
+    codigoDiv.textContent = `Código: ${codigo}`;
+    estacionDiv.textContent = `Estación: ${estacion}`;
+    horaDiv.textContent = `Hora: ${hora}`;
+    estadoDiv.textContent = `Estado: ${estado}`;
+    iconoImg.src = `imagen/${icono}.png`; // ruta imagen?
+}
+
+
 
 const createChart = (ctx, type, labels, data, label) => {
     return new Chart(ctx, {
@@ -29,9 +64,11 @@ const createChart = (ctx, type, labels, data, label) => {
     });
 };
 
+// charts
+
 const displayCharts = (data) => {
     // Extraer las etiquetas (horas de actualización) y datos de temperatura y humedad
-    const labels = data.map(item => item.codigo);
+    const labels = data.map(item => item.Estacion);
     const tempData = data.map(item => parseFloat(item.Temp));
     const humedadData = data.map(item => parseFloat(item.Humedad));
 
@@ -39,7 +76,7 @@ const displayCharts = (data) => {
     const ctx4 = document.getElementById('mychart4').getContext('2d');
 
     // Crear el gráfico de temperatura
-    const temperaturaChart = createChart(ctx4, 'radar', labels, tempData, 'Temperatura');
+    const temperaturaChart = createChart(ctx4, 'bar', labels, tempData, 'Temperatura');
 
     // Obtener el contexto del gráfico de humedad (Chart 5)
     const ctx5 = document.getElementById('mychart5').getContext('2d');
@@ -50,16 +87,3 @@ const displayCharts = (data) => {
     // Retornar los objetos de gráfico (opcional, útil si necesitas interactuar con los gráficos más adelante)
     return { temperaturaChart, humedadChart };
 };
-
-const mostrarData = (data) => {
-    // Accede a los campos que deseas mostrar
-    const codigo = data.Codigo;
-    const estacion = data.Estacion;
-    const horaUpdate = data.HoraUpdate;
-
-    // Ahora puedes mostrar estos datos en tu página HTML
-    // Por ejemplo, asumiendo que tienes elementos con IDs correspondientes en tu HTML:
-    document.getElementById('codigo').textContent = `Código: ${codigo}`;
-    document.getElementById('estacion').textContent = `Estación: ${estacion}`;
-    document.getElementById('horaUpdate').textContent = `Hora Actualizada: ${horaUpdate}`;
-}
