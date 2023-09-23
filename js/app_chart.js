@@ -1,13 +1,29 @@
+// Define el elemento <select>
+const selectEstaciones = document.querySelector('#selectEstaciones');
 
+// Función para agregar opciones al <select>
+function agregarOpcion(selectElement, value, text) {
+    const option = document.createElement('option');
+    option.value = value;
+    option.text = text;
+    selectElement.appendChild(option);
+}
+
+// Define la URL de la API
 const url = 'https://api.gael.cloud/general/public/clima';
 
+// Obtener datos de la API y crear el <select> al cargar la página
 fetch(url)
     .then(response => response.json())
     .then(data => {
         if (Array.isArray(data) && data.length > 0) {
-            const primerObjeto = data[0]; // Accede al primer objeto en el arreglo
-            mostrarData(primerObjeto);
-            displayCharts(data);
+            // Agregar una opción vacía como primer elemento
+            agregarOpcion(selectEstaciones, '', 'Selecciona una estación');
+
+            // Agregar opciones basadas en los datos de la API
+            data.forEach(objeto => {
+                agregarOpcion(selectEstaciones, objeto.Estacion, objeto.Estacion); // Utilizar objeto.Estacion
+            });
         } else {
             console.error('La respuesta del API está vacía o no es un arreglo.');
         }
@@ -16,8 +32,29 @@ fetch(url)
         console.error('Error:', error);
     });
 
+// Evento change para el select
+selectEstaciones.addEventListener('change', () => {
+    const selectedStation = selectEstaciones.value; // Obtener el valor seleccionado, que es el nombre de la estación
 
+    // Obtener datos de la API y crear el select
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            const selectedData = data.find(objeto => objeto.Estacion === selectedStation); // Buscar datos por nombre de estación
 
+            if (selectedData) {
+                mostrarData(selectedData);
+                displayCharts(data);
+            } else {
+                console.error('No se encontraron datos para la estación seleccionada.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+});
+
+// Función para mostrar datos
 function mostrarData(objeto) {
     // Obtiene los valores del objeto
     const codigo = objeto.Codigo;
@@ -31,18 +68,17 @@ function mostrarData(objeto) {
     const estacionDiv = document.getElementById('estacion');
     const horaDiv = document.getElementById('hora');
     const estadoDiv = document.getElementById('estado');
-    const iconoImg = document.getElementById('icono'); // Corrección en el nombre de la variable
+    const iconoImg = document.getElementById('icono');
 
     // Actualiza el contenido de los elementos HTML
     codigoDiv.textContent = `Código: ${codigo}`;
     estacionDiv.textContent = `Estación: ${estacion}`;
     horaDiv.textContent = `Hora: ${hora}`;
     estadoDiv.textContent = `Estado: ${estado}`;
-    iconoImg.src = `imagen/${icono}.png`; // ruta imagen?
+    iconoImg.src = `imagen/${icono}.png`; // Ajusta la ruta de la imagen según la estructura de tu proyecto
 }
 
-
-
+// Función para crear gráficos
 const createChart = (ctx, type, labels, data, label) => {
     return new Chart(ctx, {
         type: type,
@@ -64,8 +100,7 @@ const createChart = (ctx, type, labels, data, label) => {
     });
 };
 
-// charts
-
+// Función para mostrar gráficos
 const displayCharts = (data) => {
     // Extraer las etiquetas (horas de actualización) y datos de temperatura y humedad
     const labels = data.map(item => item.Estacion);
@@ -84,6 +119,6 @@ const displayCharts = (data) => {
     // Crear el gráfico de humedad
     const humedadChart = createChart(ctx5, 'line', labels, humedadData, 'Humedad');
 
-    // Retornar los objetos de gráfico (opcional, útil si necesitas interactuar con los gráficos más adelante)
+    // Retornar los objetos de gráfico 
     return { temperaturaChart, humedadChart };
 };
