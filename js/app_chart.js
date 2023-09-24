@@ -1,7 +1,7 @@
-// Define el elemento <select>
+// Define el elemento select
 const selectEstaciones = document.querySelector('#selectEstaciones');
 
-// Función para agregar opciones al <select>
+// Función para agregar opciones al select
 function agregarOpcion(selectElement, value, text) {
     const option = document.createElement('option');
     option.value = value;
@@ -25,7 +25,7 @@ fetch(url)
                 agregarOpcion(selectEstaciones, objeto.Estacion, objeto.Estacion); // Utilizar objeto.Estacion
             });
         } else {
-            console.error('La respuesta del API está vacía o no es un arreglo.');
+            console.error('La respuesta del API está vacía.');
         }
     })
     .catch(error => {
@@ -69,13 +69,13 @@ function mostrarData(objeto) {
     const horaDiv = document.getElementById('hora');
     const estadoDiv = document.getElementById('estado');
     const iconoImg = document.getElementById('icono');
-
+      
     // Actualiza el contenido de los elementos HTML
     codigoDiv.textContent = `Código: ${codigo}`;
     estacionDiv.textContent = `Estación: ${estacion}`;
     horaDiv.textContent = `Hora: ${hora}`;
     estadoDiv.textContent = `Estado: ${estado}`;
-    iconoImg.src = `imagen/${icono}.png`; // Ajusta la ruta de la imagen según la estructura de tu proyecto
+    iconoImg.src = `/imagen/${icono}`; 
 }
 
 // Función para crear gráficos
@@ -102,7 +102,7 @@ const createChart = (ctx, type, labels, data, label) => {
 
 // Función para mostrar gráficos
 const displayCharts = (data) => {
-    // Extraer las etiquetas (horas de actualización) y datos de temperatura y humedad
+    // Extraer  datos de temperatura y humedad
     const labels = data.map(item => item.Estacion);
     const tempData = data.map(item => parseFloat(item.Temp));
     const humedadData = data.map(item => parseFloat(item.Humedad));

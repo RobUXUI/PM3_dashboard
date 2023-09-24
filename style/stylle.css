@@ -1,4 +1,3 @@
-
 /*Estilos personalizados*/
 
 
@@ -6,21 +5,22 @@
 /* Estilo personalizado para el sidebar */
 .sidebar {
     height: 100%;
-    width: 250px; 
+    width: 250px;
     position: fixed;
     top: 0;
     left: 0;
-    background-color: #343a40; 
+    background-color: #343a40;
     padding-top: 20px;
 }
 
 /* Estilo para el contenido principal */
 .main-content {
-    margin-left: 260px; 
+    margin-left: 260px;
     padding: 15px;
 }
- /* Color de fondo del menú desplegable */
+
+/* Color de fondo del menú desplegable */
 .custom-select {
     background-color: #343a40;
-    color: white; 
+    color: white;
 }
